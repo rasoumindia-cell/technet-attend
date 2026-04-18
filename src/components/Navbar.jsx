@@ -68,7 +68,7 @@ export function Navbar() {
             </button>
             <div className="flex items-center gap-2">
               <img src="/Logo.jpeg" alt="TS Attend" className="w-9 h-9 rounded-xl object-cover shadow-md" />
-              <span className="font-bold text-xl text-white hidden sm:block">
+              <span className="font-bold text-lg md:text-xl text-white">
                 TS Attend
               </span>
             </div>
@@ -81,7 +81,7 @@ export function Navbar() {
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="hidden sm:block text-right">
+            <div className="text-right">
               <p className="text-sm font-semibold text-white">
                 {profile?.name}
               </p>
