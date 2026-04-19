@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;family=Inter:wght@300..700&amp;family=Manrope:wght@400..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#0b1c30",
+                        "primary-fixed": "#d8e2ff",
+                        "surface-bright": "#31394d",
+                        "secondary-fixed": "#d3e4fe",
+                        "surface-container-lowest": "#060e20",
+                        "surface": "#0b1326",
+                        "on-secondary-container": "#a9bad3",
+                        "tertiary": "#ffb786",
+                        "on-primary-fixed": "#001a42",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "tertiary-fixed": "#ffdcc6",
+                        "surface-container-low": "#131b2e",
+                        "on-surface-variant": "#c2c6d6",
+                        "primary-fixed-dim": "#adc6ff",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#311400",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "surface-container-high": "#222a3d",
+                        "on-secondary": "#213145",
+                        "tertiary-container": "#df7412",
+                        "inverse-primary": "#005ac2",
+                        "inverse-on-surface": "#283044",
+                        "secondary": "#b7c8e1",
+                        "surface-tint": "#adc6ff",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "error-container": "#93000a",
+                        "primary-container": "#4d8eff",
+                        "surface-variant": "#2d3449",
+                        "primary": "#adc6ff",
+                        "secondary-container": "#3a4a5f",
+                        "outline-variant": "#424754",
+                        "outline": "#8c909f",
+                        "inverse-surface": "#dae2fd",
+                        "surface-container-highest": "#2d3449",
+                        "surface-dim": "#0b1326",
+                        "on-primary-fixed-variant": "#004395",
+                        "on-primary": "#002e6a",
+                        "on-surface": "#dae2fd",
+                        "on-error": "#690005",
+                        "surface-container": "#171f33",
+                        "on-tertiary": "#502400",
+                        "background": "#0b1326",
+                        "on-primary-container": "#00285d",
+                        "on-tertiary-container": "#461f00",
+                        "error": "#ffb4ab",
+                        "on-background": "#dae2fd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(45, 52, 73, 0.6);
+            backdrop-filter: blur(12px);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #adc6ff 0%, #4d8eff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Navigation Shell -->
+<header class="bg-slate-900/80 backdrop-blur-md dark:bg-slate-950/80 docked full-width top-0 sticky z-50 flex justify-between items-center px-6 py-4 w-full shadow-2xl shadow-blue-900/20">
+<div class="flex items-center gap-3">
+<span class="font-['Manrope'] font-black text-2xl bg-gradient-to-br from-blue-600 to-blue-400 bg-clip-text text-transparent">TS Attend</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="hover:bg-slate-800 dark:hover:bg-slate-900 rounded-lg transition-all p-2 active:scale-95 duration-200">
+<span class="material-symbols-outlined text-slate-400">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden outline outline-2 outline-primary/20">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="Professional headshot of a young male professional in a dark studio setting with soft rim lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlQP1d1-P3vQ41edK9CmSV032CrKUODg7o5ZSHexQEw8mP2P-Wnqm92fn3cMfGBB2jCFRfYcJlVkArbO4SZBnw6RAtnQc_3PiJWlaJC4WUI8FsNeS1ypsLYXrx4BU8kmASMTCflsI_J5HjKDs9zbcTOuKhLsJ7yR3We8EYR3xg-S-JAZ9ronkz-UQNdrcmweO2S4baFFCabw1XqkQUdyuOGto6xX4lZPHCZ7dpe8r0uNlVf4ln2tBCN3LKxw_xeASWqxql6lR0Ubg"/>
+</div>
+</div>
+</header>
+<main class="px-6 pt-8 pb-32 max-w-md mx-auto space-y-8">
+<!-- Welcome Header & "Missed a Day" Quick Action -->
+<section class="space-y-2">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label text-on-surface-variant text-sm tracking-widest uppercase">Welcome Back</p>
+<h1 class="font-headline font-bold text-3xl tracking-tight text-on-surface">Alex Mercer</h1>
+</div>
+<button class="glass-panel px-4 py-2 rounded-full flex items-center gap-2 active:scale-95 transition-transform border border-outline-variant/15">
+<span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings: 'FILL' 1;">error</span>
+<span class="font-label text-[10px] font-bold uppercase tracking-widest text-on-surface">Missed a Day?</span>
+</button>
+</div>
+</section>
+<!-- Credit Alert & Balance Bento -->
+<div class="grid grid-cols-1 gap-4">
+<!-- Expiring Alert -->
+<div class="bg-tertiary-container/20 p-4 rounded-xl flex items-center gap-4 border border-tertiary/10">
+<div class="bg-tertiary-container p-2 rounded-lg">
+<span class="material-symbols-outlined text-on-tertiary-container">schedule</span>
+</div>
+<div class="flex-1">
+<p class="font-label text-xs font-bold text-tertiary uppercase tracking-tighter">Expiring Soon</p>
+<p class="text-sm text-on-surface-variant">12 Credits expire in 3 days</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</div>
+<!-- Credits Balance Card -->
+<div class="glass-panel p-6 rounded-[2rem] space-y-6 relative overflow-hidden">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary/10 rounded-full blur-3xl"></div>
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label text-xs text-on-surface-variant uppercase tracking-widest">Total Credits</p>
+<h2 class="font-headline text-5xl font-bold mt-2 font-['Space_Grotesk'] text-gradient">142</h2>
+</div>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold px-5 py-3 rounded-full flex items-center gap-2 shadow-lg shadow-primary/20 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-lg">add</span>
+<span class="text-sm">Add Credits</span>
+</button>
+</div>
+<div class="h-[1px] w-full bg-outline-variant/10"></div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface-variant">Last top-up: Oct 12</span>
+<span class="text-primary font-medium">View History</span>
+</div>
+</div>
+</div>
+<!-- Monthly Progress Asymmetric Layout -->
+<section class="space-y-4">
+<h3 class="font-headline text-xl font-bold tracking-tight">Monthly Performance</h3>
+<div class="grid grid-cols-5 gap-3">
+<div class="col-span-3 surface-container-low p-5 rounded-2xl flex flex-col justify-between h-40">
+<span class="font-label text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Attendance</span>
+<div>
+<p class="font-headline text-4xl font-bold">92%</p>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full mt-3 overflow-hidden">
+<div class="bg-primary h-full w-[92%] rounded-full shadow-[0_0_8px_rgba(173,198,ff,0.5)]"></div>
+</div>
+</div>
+</div>
+<div class="col-span-2 surface-container-low p-5 rounded-2xl flex flex-col justify-between h-40 border-l-4 border-tertiary">
+<span class="font-label text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Late Marks</span>
+<div>
+<p class="font-headline text-4xl font-bold">02</p>
+<p class="text-[10px] text-tertiary mt-2">Within Limit</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Attendance Ledger (Calendar) -->
+<section class="space-y-4">
+<div class="flex justify-between items-center">
+<h3 class="font-headline text-xl font-bold tracking-tight">Attendance Ledger</h3>
+<span class="text-xs text-on-surface-variant font-medium">October 2023</span>
+</div>
+<div class="surface-container p-2 rounded-[2rem]">
+<div class="grid grid-cols-7 gap-1 text-center mb-4">
+<div class="text-[10px] font-bold text-on-surface-variant py-2">S</div>
+<div class="text-[10px] font-bold text-on-surface-variant py-2">M</div>
+<div class="text-[10px] font-bold text-on-surface-variant py-2">T</div>
+<div class="text-[10px] font-bold text-on-surface-variant py-2">W</div>
+<div class="text-[10px] font-bold text-on-surface-variant py-2">T</div>
+<div class="text-[10px] font-bold text-on-surface-variant py-2">F</div>
+<div class="text-[10px] font-bold text-on-surface-variant py-2">S</div>
+</div>
+<div class="grid grid-cols-7 gap-2">
+<!-- Calendar Grid -->
+<div class="aspect-square flex items-center justify-center text-xs text-outline opacity-30">29</div>
+<div class="aspect-square flex items-center justify-center text-xs text-outline opacity-30">30</div>
+<div class="aspect-square flex items-center justify-center text-xs font-headline font-bold bg-primary-container text-on-primary-container rounded-xl">1</div>
+<div class="aspect-square flex items-center justify-center text-xs font-headline font-bold bg-primary-container text-on-primary-container rounded-xl">2</div>
+<div class="aspect-square flex items-center justify-center text-xs font-headline font-bold bg-primary-container text-on-primary-container rounded-xl">3</div>
+<div class="aspect-square flex items-center justify-center text-xs font-headline font-bold bg-tertiary-container/40 text-tertiary rounded-xl">4</div>
+<div class="aspect-square flex items-center justify-center text-xs font-headline font-bold surface-container-low rounded-xl">5</div>
+<div class="aspect-square flex items-center justify-center text-xs font-headline font-bold bg-primary-container text-on-primary-container rounded-xl">6</div>
+<div class="aspect-square flex items-center justify-center text-xs font-headline font-bold bg-primary-container text-on-primary-container rounded-xl">7</div>
+<div class="aspect-square flex items-center justify-center text-xs font-headline font-bold bg-primary-container text-on-primary-container rounded-xl">8</div>
+<div class="aspect-square flex items-center justify-center text-xs font-headline font-bold bg-primary-container text-on-primary-container rounded-xl">9</div>
+<div class="aspect-square flex items-center justify-center text-xs font-headline font-bold bg-primary-container text-on-primary-container rounded-xl">10</div>
+<div class="aspect-square flex items-center justify-center text-xs font-headline font-bold bg-primary-container text-on-primary-container rounded-xl">11</div>
+<div class="aspect-square flex items-center justify-center text-xs font-headline font-bold bg-primary-container text-on-primary-container rounded-xl">12</div>
+<div class="aspect-square flex items-center justify-center text-xs font-headline font-bold bg-primary-container text-on-primary-container rounded-xl">13</div>
+<div class="aspect-square flex items-center justify-center text-xs font-headline font-bold bg-primary-container text-on-primary-container rounded-xl shadow-[0_0_12px_rgba(173,198,ff,0.3)] border border-primary/40 relative">
+                        14
+                        <div class="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full"></div>
+</div>
+<div class="aspect-square flex items-center justify-center text-xs font-headline font-bold surface-container-low rounded-xl">15</div>
+<div class="aspect-square flex items-center justify-center text-xs font-headline font-bold surface-container-low rounded-xl">16</div>
+<div class="aspect-square flex items-center justify-center text-xs font-headline font-bold surface-container-low rounded-xl">17</div>
+<div class="aspect-square flex items-center justify-center text-xs font-headline font-bold surface-container-low rounded-xl">18</div>
+<div class="aspect-square flex items-center justify-center text-xs font-headline font-bold surface-container-low rounded-xl">19</div>
+</div>
+</div>
+</section>
+<!-- Recent Activity Feed -->
+<section class="space-y-4">
+<div class="flex justify-between items-center">
+<h3 class="font-headline text-xl font-bold tracking-tight">Chronicle</h3>
+<button class="text-xs font-bold text-primary uppercase tracking-widest">See All</button>
+</div>
+<div class="space-y-3">
+<div class="surface-container-low p-4 rounded-2xl flex items-center gap-4 transition-transform active:scale-[0.98]">
+<div class="w-12 h-12 rounded-xl surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">login</span>
+</div>
+<div class="flex-1">
+<p class="font-bold text-sm">Main Office Entrance</p>
+<p class="text-xs text-on-surface-variant">Checked in at 08:42 AM</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase">Today</p>
+</div>
+</div>
+<div class="surface-container-low p-4 rounded-2xl flex items-center gap-4 transition-transform active:scale-[0.98]">
+<div class="w-12 h-12 rounded-xl surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary">payments</span>
+</div>
+<div class="flex-1">
+<p class="font-bold text-sm">Credit Top-up</p>
+<p class="text-xs text-on-surface-variant">Purchased 50 credits</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase">Oct 12</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Shell -->
+<nav class="bg-slate-900/90 backdrop-blur-xl dark:bg-slate-950/90 fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 shadow-[0_-10px_40px_rgba(0,0,0,0.4)] rounded-t-[2rem]">
+<a class="flex flex-col items-center justify-center bg-blue-600/20 text-blue-400 rounded-2xl px-6 py-2 transition-all tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-['Inter'] text-[10px] font-semibold uppercase tracking-widest">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 active:bg-slate-800 transition-all tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined mb-1">history_edu</span>
+<span class="font-['Inter'] text-[10px] font-semibold uppercase tracking-widest">Log</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 active:bg-slate-800 transition-all tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined mb-1">add_circle</span>
+<span class="font-['Inter'] text-[10px] font-semibold uppercase tracking-widest">Request</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 active:bg-slate-800 transition-all tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-['Inter'] text-[10px] font-semibold uppercase tracking-widest">Profile</span>
+</a>
+</nav>
+</body></html>
