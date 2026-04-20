@@ -3,26 +3,15 @@ import { useAuth } from '../../context/AuthContext'
 import { useAttendance } from '../../hooks/useAttendance'
 import { Navbar } from '../../components/Navbar'
 import { Calendar } from '../../components/Calendar'
-import { Card, CardHeader, CardBody, Table, LoadingSpinner, ConfirmModal } from '../../components/ui'
-import { Trash2 } from 'lucide-react'
+import { Card, CardHeader, CardBody, Table, LoadingSpinner } from '../../components/ui'
 import { format } from 'date-fns'
 
 export function Attendance() {
   const { user } = useAuth()
-  const { attendance, markAttendance, isMarkedToday, deleteAttendance, loading } = useAttendance(user?.id)
-  const [deleteId, setDeleteId] = useState(null)
-  const [deleting, setDeleting] = useState(false)
+  const { attendance, markAttendance, isMarkedToday, loading } = useAttendance(user?.id)
 
   const handleDateClick = async (dateStr) => {
     await markAttendance(dateStr)
-  }
-
-  const handleDelete = async () => {
-    if (!deleteId) return
-    setDeleting(true)
-    await deleteAttendance(deleteId)
-    setDeleteId(null)
-    setDeleting(false)
   }
 
   const markedDates = attendance.map(a => ({ date: a.date, id: a.id }))
@@ -42,17 +31,6 @@ export function Attendance() {
       header: 'Marked At',
       accessor: 'created_at',
       render: (row) => format(new Date(row.created_at), 'h:mm a')
-    },
-    {
-      header: 'Actions',
-      render: (row) => (
-        <button
-          onClick={() => setDeleteId(row.id)}
-          className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-colors"
-        >
-          <Trash2 className="w-4 h-4" />
-        </button>
-      )
     }
   ]
 
@@ -100,14 +78,6 @@ export function Attendance() {
           </Card>
         </div>
 
-        <ConfirmModal
-          isOpen={!!deleteId}
-          onClose={() => setDeleteId(null)}
-          onConfirm={handleDelete}
-          title="Delete Attendance"
-          message="Are you sure you want to delete this attendance record? This action cannot be undone."
-          loading={deleting}
-        />
       </main>
     </div>
   )
