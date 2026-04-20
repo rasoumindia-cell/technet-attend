@@ -1,15 +1,12 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Input } from '../../components/ui'
-import { Mail, Lock, User, Phone, Hash } from 'lucide-react'
+import { Mail, Lock, User, Phone } from 'lucide-react'
 import toast from 'react-hot-toast'
-
-const SUPABASE_URL = 'https://wmlthxpdsknpfczxzmkk.supabase.co'
-const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_REy2veg2KW1auAq0HYy7kQ_Ckk_urHO'
+import { supabase } from '../../lib/supabase'
 
 export function Register() {
   const [name, setName] = useState('')
-  const [customerId, setCustomerId] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [phone, setPhone] = useState('')
@@ -18,8 +15,12 @@ export function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     
-    if (!name || !customerId || !email || !password) {
+    if (!name || !email || !password) {
       toast.error('Please fill in all required fields')
+      return
+    }
+    if (!email.endsWith('@gmail.com')) {
+      toast.error('Only Gmail addresses are allowed (@gmail.com)')
       return
     }
     if (password.length < 6) {
@@ -30,57 +31,51 @@ export function Register() {
     setLoading(true)
     
     try {
-      const response = await fetch(`${SUPABASE_URL}/auth/v1/signup`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': SUPABASE_KEY
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
+      const customerId = `CUST${Math.floor(Math.random() * 9000) + 1000}`
+
+      // Sign up the user
+      const { data, error } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+        options: {
           data: {
             full_name: name,
             phone: phone,
             customer_id: customerId
           }
-        })
+        }
       })
 
-      const data = await response.json()
-
-      if (!response.ok) {
-        toast.error(data.error_description || data.msg || 'Registration failed')
+      if (error) {
+        toast.error(error.message || 'Registration failed')
         setLoading(false)
         return
       }
 
       if (data.user) {
-        const profileRes = await fetch(`${SUPABASE_URL}/rest/v1/profiles`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': SUPABASE_KEY,
-            'Prefer': 'return=minimal'
-          },
-          body: JSON.stringify({
+        // Upsert profile (insert or update if exists)
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .upsert({
             id: data.user.id,
             customer_id: customerId,
             name: name,
             role: 'customer'
-          })
-        })
+          }, { onConflict: 'id' })
 
-        if (profileRes.ok || profileRes.status === 201) {
-          toast.success('Account created! Please login.')
-          window.location.href = '/login'
-        } else {
+        if (profileError) {
+          console.error('Profile creation failed:', profileError)
           toast.error('Account created but profile failed')
           setLoading(false)
+          return
         }
+
+        toast.success('Account created! Please login.')
+        window.location.href = '/login'
       }
     } catch (error) {
       toast.error('Registration failed')
+      console.error(error)
       setLoading(false)
     }
   }
@@ -106,17 +101,6 @@ export function Register() {
                 onChange={(e) => setName(e.target.value)}
                 className="pl-12 py-3"
                 autoComplete="name"
-              />
-            </div>
-            <div className="relative">
-              <Hash className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <Input
-                type="text"
-                name="customerId"
-                placeholder="Customer ID (e.g., CUST001)"
-                value={customerId}
-                onChange={(e) => setCustomerId(e.target.value)}
-                className="pl-12 py-3"
               />
             </div>
             <div className="relative">
