@@ -28,8 +28,10 @@ export function AdminCustomers() {
       if (error) {
         console.log('Error:', error)
       }
+      console.log('Raw profiles from DB:', data?.length, data)
       // Filter out admins from client side
       const customersOnly = (data || []).filter(p => !p.role || p.role !== 'admin')
+      console.log('After filtering admins:', customersOnly.length, customersOnly)
       setCustomers(customersOnly)
 
       const stats = {}
@@ -68,6 +70,9 @@ export function AdminCustomers() {
     if (!deleteId) return
     setDeleting(true)
     try {
+      console.log('Deleting customer:', deleteId)
+      console.log('Current customers count:', customers.length)
+      
       const { error } = await supabase
         .from('profiles')
         .delete()
@@ -76,7 +81,7 @@ export function AdminCustomers() {
       if (error) throw error
 
       toast.success('Customer deleted successfully')
-      setCustomers(customers.filter(c => c.id !== deleteId))
+      await fetchCustomers()
     } catch (error) {
       toast.error('Failed to delete customer')
       console.error(error)
