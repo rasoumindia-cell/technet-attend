@@ -144,6 +144,18 @@ export function Credits() {
                       render: (row) => format(new Date(row.valid_until), 'MMM d, yyyy')
                     },
                     {
+                      header: 'Used',
+                      render: (row) => (
+                        <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                          row.used 
+                            ? 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400' 
+                            : 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+                        }`}>
+                          {row.used ? 'Used' : 'Not Used'}
+                        </span>
+                      )
+                    },
+                    {
                       header: 'Status',
                       render: (row) => {
                         const { status, color } = getCreditStatus(row)

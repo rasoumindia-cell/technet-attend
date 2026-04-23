@@ -7,7 +7,8 @@ import {
   Users, 
   LogOut,
   Menu,
-  X
+  X,
+  Share2
 } from 'lucide-react'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -34,6 +35,7 @@ export function Navbar() {
     { to: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { to: '/admin/customers', label: 'Customers', icon: Users },
     { to: '/admin/credits', label: 'Credits', icon: CreditCard },
+    { to: '/admin/social-links', label: 'Social Links', icon: Share2 },
   ]
 
   const links = isAdmin ? adminLinks : customerLinks

@@ -12,6 +12,7 @@ import { AdminDashboard } from './pages/admin/Dashboard'
 import { AdminCustomers } from './pages/admin/Customers'
 import { AdminCredits } from './pages/admin/Credits'
 import { CustomerDetail } from './pages/admin/CustomerDetail'
+import { AdminSocialLinks } from './pages/admin/SocialLinks'
 
 function LoadingScreen() {
   return (
@@ -78,6 +79,9 @@ export default function App() {
           } />
           <Route path="/admin/credits" element={
             <ProtectedRoute requiredRole="admin"><AdminCredits /></ProtectedRoute>
+          } />
+          <Route path="/admin/social-links" element={
+            <ProtectedRoute requiredRole="admin"><AdminSocialLinks /></ProtectedRoute>
           } />
 
           <Route path="/" element={<Navigate to="/login" replace />} />

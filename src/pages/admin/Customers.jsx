@@ -52,7 +52,7 @@ export function AdminCustomers() {
           : null
 
         stats[customer.id] = {
-          attendanceCount: attendance.count || 0,
+          attendanceCount: attendance.data?.length || 0,
           activeCredits: totalActive,
           validTill: earliestExpiry
         }
@@ -171,21 +171,6 @@ export function AdminCustomers() {
                       {customerStats[row.id]?.activeCredits?.toFixed(2) || '0.00'}
                     </span>
                   )
-                },
-                {
-                  header: 'Valid Till',
-                  render: (row) => {
-                    const validTill = customerStats[row.id]?.validTill
-                    if (!validTill) return <span className="text-gray-400">-</span>
-                    const daysLeft = Math.ceil((new Date(validTill) - new Date()) / (1000 * 60 * 60 * 24))
-                    const isExpiringSoon = daysLeft <= 7 && daysLeft > 0
-                    return (
-                      <span className={isExpiringSoon ? 'text-orange-600 font-medium' : 'text-gray-600 dark:text-gray-300'}>
-                        {format(new Date(validTill), 'MMM d, yyyy')}
-                        {isExpiringSoon && ` (${daysLeft}d)`}
-                      </span>
-                    )
-                  }
                 },
                 {
                   header: 'Actions',

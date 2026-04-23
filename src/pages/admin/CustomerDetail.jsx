@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { Navbar } from '../../components/Navbar'
 import { Card, CardHeader, CardBody, Table, LoadingSpinner, Button, ConfirmModal } from '../../components/ui'
 import { supabase } from '../../lib/supabase'
-import { ArrowLeft, Trash2, Calendar, CreditCard, User, Mail, Phone } from 'lucide-react'
+import { ArrowLeft, Trash2, Calendar, CreditCard, User, Mail, Phone, Edit } from 'lucide-react'
 import { format } from 'date-fns'
 import toast from 'react-hot-toast'
 
@@ -16,6 +16,8 @@ export function CustomerDetail() {
   const [loading, setLoading] = useState(true)
   const [deleteAttendanceId, setDeleteAttendanceId] = useState(null)
   const [deleting, setDeleting] = useState(false)
+  const [editingCredit, setEditingCredit] = useState(null)
+  const [editFormData, setEditFormData] = useState({ amount: '', description: '', valid_until: '' })
 
   useEffect(() => {
     fetchData()
@@ -58,6 +60,55 @@ export function CustomerDetail() {
     } finally {
       setDeleteAttendanceId(null)
       setDeleting(false)
+    }
+  }
+
+  const handleEditCredit = (credit) => {
+    setEditingCredit(credit)
+    setEditFormData({
+      amount: credit.amount,
+      description: credit.description || '',
+      valid_until: credit.valid_until ? credit.valid_until.split('T')[0] : '',
+      used: credit.used || false
+    })
+  }
+
+  const handleSaveCredit = async () => {
+    if (!editingCredit) return
+    try {
+      const { error } = await supabase
+        .from('credits')
+        .update({
+          amount: parseFloat(editFormData.amount),
+          description: editFormData.description,
+          valid_until: editFormData.valid_until,
+          used: editFormData.used
+        })
+        .eq('id', editingCredit.id)
+
+      if (error) throw error
+      toast.success('Credit updated successfully')
+      setEditingCredit(null)
+      fetchData()
+    } catch (error) {
+      toast.error('Failed to update credit')
+      console.error(error)
+    }
+  }
+
+  const handleDeleteCredit = async (creditId) => {
+    try {
+      const { error } = await supabase
+        .from('credits')
+        .delete()
+        .eq('id', creditId)
+
+      if (error) throw error
+      toast.success('Credit deleted successfully')
+      setCredits(credits.filter(c => c.id !== creditId))
+    } catch (error) {
+      toast.error('Failed to delete credit')
+      console.error(error)
     }
   }
 
@@ -223,6 +274,39 @@ export function CustomerDetail() {
                     {
                       header: 'Valid Until',
                       render: (row) => format(new Date(row.valid_until), 'MMM d')
+                    },
+                    {
+                      header: 'Status',
+                      render: (row) => (
+                        <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                          row.used 
+                            ? 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400' 
+                            : 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+                        }`}>
+                          {row.used ? 'Used' : 'Not Used'}
+                        </span>
+                      )
+                    },
+                    {
+                      header: 'Actions',
+                      render: (row) => (
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => handleEditCredit(row)}
+                            className="p-1 text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                            title="Edit"
+                          >
+                            <Edit className="w-4 h-4" />
+                          </button>
+                          <button
+                            onClick={() => handleDeleteCredit(row.id)}
+                            className="p-1 text-red-600 hover:bg-red-50 rounded transition-colors"
+                            title="Delete"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      )
                     }
                   ]}
                   data={credits}
@@ -240,6 +324,87 @@ export function CustomerDetail() {
           message="Are you sure you want to delete this attendance record?"
           loading={deleting}
         />
+
+        {/* Edit Credit Modal */}
+        {editingCredit && (
+          <div className="fixed inset-0 z-50 overflow-y-auto">
+            <div className="flex min-h-screen items-center justify-center p-4">
+              <div className="fixed inset-0 bg-black/50" onClick={() => setEditingCredit(null)} />
+              <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl max-w-md w-full p-6">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
+                  Edit Credit
+                </h2>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      Amount
+                    </label>
+                    <input
+                      type="number"
+                      step="0.01"
+                      value={editFormData.amount}
+                      onChange={(e) => setEditFormData({...editFormData, amount: e.target.value})}
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      Description
+                    </label>
+                    <input
+                      type="text"
+                      value={editFormData.description}
+                      onChange={(e) => setEditFormData({...editFormData, description: e.target.value})}
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      Valid Until
+                    </label>
+                    <input
+                      type="date"
+                      value={editFormData.valid_until}
+                      onChange={(e) => setEditFormData({...editFormData, valid_until: e.target.value})}
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="checkbox"
+                      id="used"
+                      checked={editFormData.used}
+                      onChange={(e) => setEditFormData({...editFormData, used: e.target.checked})}
+                      className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
+                    />
+                    <label htmlFor="used" className="text-sm text-gray-700 dark:text-gray-300">
+                      Mark as Used
+                    </label>
+                  </div>
+                </div>
+
+                <div className="flex gap-3 mt-6">
+                  <button
+                    onClick={() => setEditingCredit(null)}
+                    className="flex-1 px-4 py-2 text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleSaveCredit}
+                    className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors"
+                  >
+                    Save
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   )
